@@ -15,7 +15,8 @@ const map = L.map("map", {
 });
 
 const basemap = L.tileLayer(
-	"https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png"
+	//"https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png"
+	"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 ).addTo(map);
 
 const pima = L.geoJSON.ajax("../geojson/pima.geojson", { style: startingColor }).addTo(map);
