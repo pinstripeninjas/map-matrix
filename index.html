@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- Leaflet CSS -->
+		<link rel="stylesheet" href="./src/leaflet/leaflet.css" />
+		<!-- UIkit CSS -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.7/dist/css/uikit.min.css" />
+		<!-- Local CSS -->
+		<link rel="stylesheet" href="./src/style.css" />
+		<title>Clickable Map Matrix</title>
+	</head>
+	<body>
+		<div class="uk-container uk-container-xlarge">
+			<h1 class="uk-margin-top">Geographic Matrix Editor</h1>
+			<hr />
+			<div class="uk-flex uk-flex-between">
+				<form>
+					<fieldset class="uk-fieldset">
+						<legend class="uk-legend">Email Options</legend>
+						<div class="uk-margin">
+							<select class="uk-select uk-form-width-large">
+								<option>Email List #1</option>
+								<option>Email List #2</option>
+								<option>Email List #3</option>
+							</select>
+						</div>
+						<div class="uk-margin">
+							<input class="uk-input uk-form-width-large" type="text" placeholder="Subject" />
+						</div>
+						<div class="uk-margin">
+							<textarea
+								class="uk-textarea uk-form-width-large"
+								rows="5"
+								placeholder="Write something exciting here..."
+							></textarea>
+						</div>
+						<div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+							<label
+								><input class="uk-checkbox" type="checkbox" checked /> Include Geographic
+								Matrix</label
+							>
+							<label><input class="uk-checkbox" type="checkbox" /> Include Matrix Table</label>
+						</div>
+						<button class="uk-button uk-button-primary">Submit</button>
+					</fieldset>
+				</form>
+
+				<div id="map"></div>
+			</div>
+		</div>
+		<!-- UIkit JS -->
+		<script src="https://cdn.jsdelivr.net/npm/uikit@3.5.7/dist/js/uikit.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/uikit@3.5.7/dist/js/uikit-icons.min.js"></script>
+		<!-- Leaflet and local JS -->
+		<script src="./src/leaflet/leaflet.js"></script>
+		<script src="./src/leaflet/leaflet.ajax.min.js"></script>
+		<script src="./src/script.js"></script>
+	</body>
+</html>
