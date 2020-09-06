@@ -19,14 +19,18 @@ const basemap = L.tileLayer(
 	"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 ).addTo(map);
 
-const pima = L.geoJSON.ajax("../geojson/pima.geojson", { style: startingColor }).addTo(map);
-const pinal = L.geoJSON.ajax("../geojson/pinal.geojson", { style: startingColor }).addTo(map);
+const pima = L.geoJSON.ajax("./src/geojson/pima.geojson", { style: startingColor }).addTo(map);
+const pinal = L.geoJSON.ajax("./src/geojson/pinal.geojson", { style: startingColor }).addTo(map);
 const santaCruz = L.geoJSON
-	.ajax("../geojson/santa-cruz.geojson", { style: startingColor })
+	.ajax("./src/geojson/santa-cruz.geojson", { style: startingColor })
 	.addTo(map);
-const graham = L.geoJSON.ajax("../geojson/graham.geojson", { style: startingColor }).addTo(map);
-const greenlee = L.geoJSON.ajax("../geojson/greenlee.geojson", { style: startingColor }).addTo(map);
-const cochise = L.geoJSON.ajax("../geojson/cochise.geojson", { style: startingColor }).addTo(map);
+const graham = L.geoJSON.ajax("./src/geojson/graham.geojson", { style: startingColor }).addTo(map);
+const greenlee = L.geoJSON
+	.ajax("./src/geojson/greenlee.geojson", { style: startingColor })
+	.addTo(map);
+const cochise = L.geoJSON
+	.ajax("./src/geojson/cochise.geojson", { style: startingColor })
+	.addTo(map);
 
 function startingColor() {
 	return { color: green };
