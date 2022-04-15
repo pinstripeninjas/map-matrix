@@ -6,55 +6,78 @@
 		<!-- Leaflet CSS -->
 		<link rel="stylesheet" href="./src/leaflet/leaflet.css" />
 		<!-- UIkit CSS -->
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.7/dist/css/uikit.min.css" />
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/uikit@3.13.7/dist/css/uikit.min.css"
+		/>
 		<!-- Local CSS -->
 		<link rel="stylesheet" href="./src/style.css" />
-		<title>Clickable Map Matrix</title>
+		<title>Geographic Risk Matrix</title>
 	</head>
 	<body>
 		<div class="uk-container uk-container-xlarge">
-			<h1 class="uk-margin-top">Geographic Matrix Editor</h1>
+			<h1 class="uk-margin-top">Geographic Risk Matrix</h1>
 			<hr />
-			<div class="uk-flex uk-flex-between uk-flex-wrap">
-				<div id="map" class="uk-margin" uk-tooltip="Click county to change color"></div>
-				<form>
-					<fieldset class="uk-fieldset uk-margin">
-						<legend class="uk-legend">Email Options</legend>
-						<div class="uk-margin">
-							<select class="uk-select uk-form-width-large">
-								<option>Email List #1</option>
-								<option>Email List #2</option>
-								<option>Email List #3</option>
+			<div class="uk-flex uk-flex-between uk-flex-wrap flex-gap">
+				<div
+					id="map"
+					class="uk-margin"
+					uk-tooltip="title: Drag/scroll to change map view. Click to change risk color.; pos: bottom-center"
+				>
+					<div id="dateDisplay" contenteditable="true">Set Valid Date...</div>
+					<div class="branding">
+						<img src="./src/imgs/150px-NOAA-Logo.png" />
+						<img src="./src/imgs/150px-NWS-Logo.png" />
+						<div id="messageDisplay" class="d-none">Message placeholder...</div>
+					</div>
+				</div>
+				<div class="uk-form-stacked uk-flex-1">
+					<div class="uk-margin">
+						<label class="uk-form-label" for="selectLayer">Select Layer:</label>
+						<div class="uk-form-controls">
+							<select id="selectLayer" class="uk-select">
+								<option value="counties">Counties</option>
+								<option value="zones">Forecast Zones</option>
 							</select>
 						</div>
-						<div class="uk-margin">
-							<input class="uk-input uk-form-width-large" type="text" placeholder="Subject" />
+					</div>
+					<div class="uk-margin">
+						<label class="uk-form-label" for="validDate">Valid Date:</label>
+						<div class="uk-form-controls">
+							<input type="date" id="validDate" class="uk-input" />
 						</div>
-						<div class="uk-margin">
-							<textarea
-								class="uk-textarea uk-form-width-large"
-								rows="5"
-								placeholder="Write something exciting here..."
-							></textarea>
-						</div>
-						<div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
-							<label
-								><input class="uk-checkbox" type="checkbox" checked /> Include Geographic
-								Matrix</label
-							>
-							<label><input class="uk-checkbox" type="checkbox" /> Include Matrix Table</label>
-						</div>
-						<button class="uk-button uk-button-primary">Submit</button>
-					</fieldset>
-				</form>
+					</div>
+					<div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+						<label
+							><input id="checkboxShowDate" class="uk-checkbox" type="checkbox" checked /> Show
+							Date</label
+						>
+						<label
+							><input id="checkboxMessage" class="uk-checkbox" type="checkbox" /> Add Message</label
+						>
+					</div>
+					<div class="uk-margin">
+						<label class="uk-form-label" for="messageText">Message:</label>
+						<textarea
+							id="messageText"
+							class="uk-textarea"
+							rows="4"
+							placeholder="Write message here..."
+							spellcheck="true"
+						></textarea>
+					</div>
+					<button class="uk-button uk-button-primary" id="btnDownload">Download</button>
+				</div>
 			</div>
 		</div>
 		<!-- UIkit JS -->
-		<script src="https://cdn.jsdelivr.net/npm/uikit@3.5.7/dist/js/uikit.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/uikit@3.5.7/dist/js/uikit-icons.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/uikit@3.13.7/dist/js/uikit.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/uikit@3.13.7/dist/js/uikit-icons.min.js"></script>
 		<!-- Leaflet and local JS -->
 		<script src="./src/leaflet/leaflet.js"></script>
 		<script src="./src/leaflet/leaflet.ajax.min.js"></script>
-		<script src="./src/script.js"></script>
+		<!-- Html to Image -->
+		<script src="./src/js/html-to-image.js"></script>
+		<script src="./src/script.js" type="module"></script>
 	</body>
 </html>
