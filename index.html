@@ -37,7 +37,8 @@
 						<div class="uk-form-controls">
 							<select id="selectLayer" class="uk-select">
 								<option value="counties">Counties</option>
-								<option value="zones">Forecast Zones</option>
+								<option value="pzones">Public Forecast Zones</option>
+								<option value="fzones">Fire Forecast Zones</option>
 							</select>
 						</div>
 					</div>
@@ -76,6 +77,11 @@
 		<!-- Leaflet and local JS -->
 		<script src="./src/leaflet/leaflet.js"></script>
 		<script src="./src/leaflet/leaflet.ajax.min.js"></script>
+		<script
+			src="https://unpkg.com/esri-leaflet@3.0.8/dist/esri-leaflet.js"
+			integrity="sha512-E0DKVahIg0p1UHR2Kf9NX7x7TUewJb30mxkxEm2qOYTVJObgsAGpEol9F6iK6oefCbkJiA4/i6fnTHzM6H1kEA=="
+			crossorigin=""
+		></script>
 		<!-- Html to Image -->
 		<script src="./src/js/html-to-image.js"></script>
 		<script src="./src/script.js" type="module"></script>

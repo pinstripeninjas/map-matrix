@@ -7,6 +7,8 @@ const messageDisplay = document.querySelector("#messageDisplay");
 const messageText = document.querySelector("#messageText");
 const branding = document.querySelector(".branding");
 
+const selectLayer = document.querySelector("#selectLayer");
+
 const mapGraphic = document.querySelector("#map");
 const btnDownload = document.querySelector("#btnDownload");
 
@@ -28,10 +30,6 @@ const map = L.map("map", {
 });
 
 const basemap = L.tileLayer(
-	// "https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png"
-	//"https://stamen-tiles-{s}.a.ssl.fastly.net/terrain-background/{z}/{x}/{y}{r}"
-	// "https://stamen-tiles.a.ssl.fastly.net/terrain/{z}/{x}/{y}.jpg",
-	// "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
 	"https://stamen-tiles.a.ssl.fastly.net/terrain-background/{z}/{x}/{y}.png",
 	{
 		crossOrigin: "anonymous",
@@ -44,22 +42,12 @@ const roads = L.tileLayer(
 	{ crossOrigin: "anonymous" }
 ).addTo(map);
 
-// const pima = L.geoJSON
-// 	.ajax("./src/geojson/az-counties.geojson", { style: startingColor, onEachFeature })
-// 	.addTo(map);
-// const pinal = L.geoJSON.ajax("./src/geojson/pinal.geojson", { style: startingColor }).addTo(map);
-
-// const counties = getCounties();
-getCounties();
+// getCounties();
 async function getCounties() {
 	const response = await fetch("./src/geojson/az-counties.geojson");
 	const geojson = await response.json();
 	L.geoJSON(geojson, { style: startingColor, onEachFeature }).addTo(map);
 }
-
-// const labels = L.tileLayer(
-// 	"https://stamen-tiles.a.ssl.fastly.net/toner-labels/{z}/{x}/{y}.png"
-// ).addTo(map);
 
 function onEachFeature(feature, layer) {
 	layer.on("click", () => {
@@ -130,4 +118,52 @@ function generateImage() {
 		a.click();
 		// btnDownloadGraphic.innerHTML = `<i class="fas fa-file-download mr-5"></i>Download Image`;
 	});
+}
+
+// alt map loading, starting with counties
+
+const RiskMapLayers = (name, url) => {
+	const getName = () => name;
+	const getUrl = () => url;
+	return { getName, getUrl };
+};
+
+const arrayOfLayers = [
+	RiskMapLayers(
+		"counties",
+		"https://idpgis.ncep.noaa.gov/arcgis/rest/services/NWS/nws_reference_map/MapServer/2"
+	),
+	RiskMapLayers(
+		"pzones",
+		"https://idpgis.ncep.noaa.gov/arcgis/rest/services/NWS/nws_reference_map/MapServer/8"
+	),
+	RiskMapLayers(
+		"fzones",
+		"https://idpgis.ncep.noaa.gov/arcgis/rest/services/NWS/nws_reference_map/MapServer/9"
+	),
+];
+
+changeMapLayer("counties");
+selectLayer.addEventListener("change", (e) => {
+	changeMapLayer(e.target.value);
+});
+
+function changeMapLayer(layerName) {
+	map.eachLayer((layer) => {
+		if (layer !== basemap && layer !== roads) {
+			map.removeLayer(layer);
+		}
+	});
+	let url = "";
+	for (let layer of arrayOfLayers) {
+		if (layer.getName() === layerName) {
+			url = layer.getUrl();
+		}
+	}
+	const newLayer = L.esri.featureLayer({
+		url,
+		onEachFeature,
+		style: startingColor,
+	});
+	map.addLayer(newLayer);
 }
