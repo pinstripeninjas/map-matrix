@@ -82,8 +82,15 @@ function cycleColor(currentColor) {
 }
 
 validDate.addEventListener("change", (e) => {
-	dateDisplay.innerHTML = `Valid: ${e.target.value}`;
+	console.log(e.target.value);
+	const tempDate = new Date(`${e.target.value}T00:00:00`).toLocaleDateString();
+	dateDisplay.innerHTML = `Valid: ${tempDate}`;
 });
+
+// const currentDate = new Date().toLocaleDateString();
+// dateDisplay.innerHTML = `Valid: ${currentDate}`;
+validDate.valueAsDate = new Date();
+validDate.dispatchEvent(new Event("change"));
 
 checkboxShowDate.addEventListener("change", (e) => {
 	if (!e.target.checked) {

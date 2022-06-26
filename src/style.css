@@ -1,3 +1,11 @@
+:root {
+	--green: #99ff98;
+	--yellow: #f0c86a;
+	--orange: #ed7645;
+	--red: #cd2654;
+	--purple: #9e01a5;
+}
+
 body {
 	user-select: none;
 	-moz-user-select: none;
@@ -25,12 +33,64 @@ body {
 }
 
 .branding.bg {
-	background-color: rgba(255, 255, 255, 0.8);
+	background-color: rgba(255, 255, 255, 0.9);
 }
 
 .branding img {
-	width: 75px;
+	width: 60px;
 	padding-right: 10px;
+}
+
+.legend {
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 130px;
+	z-index: 1000;
+	background-color: rgba(255, 255, 255, 0.9);
+	padding: 10px;
+}
+
+.levels {
+	text-align: center;
+	color: #333;
+}
+
+.levels p {
+	margin: 10px 0;
+}
+
+.levels p:first-child {
+	margin-top: 0;
+	border-top: 1px solid #333;
+	border-bottom: 1px solid #333;
+}
+
+.levels p:last-child {
+	margin-bottom: 0;
+}
+
+.green {
+	background-color: var(--green);
+}
+
+.yellow {
+	background-color: var(--yellow);
+}
+
+.orange {
+	background-color: var(--orange);
+	color: #fff;
+}
+
+.red {
+	background-color: var(--red);
+	color: #fff;
+}
+
+.purple {
+	background-color: var(--purple);
+	color: #fff;
 }
 
 #messageDisplay {
@@ -42,19 +102,14 @@ body {
 }
 
 #dateDisplay {
-	position: absolute;
-	top: 0;
-	right: 0;
-	padding: 10px;
-	background-color: rgba(255, 255, 255, 0.8);
-	z-index: 1000;
 	color: #333;
 	width: fit-content;
 	font-size: 16px;
 	font-style: italic;
+	margin-bottom: 10px;
 }
 
 #map {
-	height: 500px;
 	width: 1000px;
+	aspect-ratio: 16 / 9;
 }
