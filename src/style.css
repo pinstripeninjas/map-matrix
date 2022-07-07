@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Gantari&display=swap");
+
 :root {
 	--green: #99ff98;
 	--yellow: #f0c86a;
@@ -11,6 +13,7 @@ body {
 	-moz-user-select: none;
 	-webkit-user-select: none;
 	-ms-user-select: none;
+	font-family: "Gantari", sans-serif;
 }
 
 .flex-gap {
@@ -49,10 +52,10 @@ body {
 	z-index: 1000;
 	background-color: rgba(255, 255, 255, 0.9);
 	padding: 10px;
+	text-align: center;
 }
 
 .levels {
-	text-align: center;
 	color: #333;
 }
 
@@ -93,6 +96,26 @@ body {
 	color: #fff;
 }
 
+.leaflet-div-icon {
+	background-color: transparent;
+	border: none;
+}
+
+.city-marker {
+	width: max-content;
+	background: rgba(255, 255, 255, 0.9);
+	/* background: none; */
+	/* text-shadow: 0px 0px 5px #fff; */
+	color: black;
+	font-size: 18px;
+	text-transform: capitalize;
+	/* font-weight: bold; */
+	transform: translate(-50%, -50%);
+	text-align: center;
+	padding: 3px;
+	border-radius: 4px;
+}
+
 #messageDisplay {
 	color: #333;
 	font-size: 16px;
@@ -103,10 +126,10 @@ body {
 
 #dateDisplay {
 	color: #333;
-	width: fit-content;
 	font-size: 16px;
 	font-style: italic;
 	margin-bottom: 10px;
+	text-align: center;
 }
 
 #map {

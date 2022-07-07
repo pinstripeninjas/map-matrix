@@ -16,8 +16,8 @@ const btnDownload = document.querySelector("#btnDownload");
 const mapControl = (() => {
 	// create leaflet map
 	const map = L.map("map", {
-		center: [32.5, -111.2],
-		zoom: 7.5,
+		center: [32.4, -111.0],
+		zoom: 7.8,
 		maxZoom: 10,
 		minZoom: 5,
 		zoomSnap: 0.1,
@@ -33,6 +33,20 @@ const mapControl = (() => {
 			attribution: `Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.`,
 		}
 	);
+	// probably remove this counties layer later...
+	const counties = async () => {
+		const response = await fetch("./src/geojson/az-counties.geojson");
+		const data = await response.json();
+		return L.geoJSON(data, {
+			style: {
+				color: "black",
+				weight: 1,
+				fillOpacity: 0,
+				dashArray: [4, 8],
+			},
+		});
+	};
+
 	// factory function for creating map layers
 	const RiskMapLayers = (name, url) => {
 		const getName = () => name;
@@ -41,7 +55,7 @@ const mapControl = (() => {
 	};
 	// create array of RiskMapLayers
 	const arrayOfLayers = [
-		RiskMapLayers("counties", "./src/geojson/az-counties.geojson"),
+		// RiskMapLayers("counties", "./src/geojson/az-counties.geojson"),
 		RiskMapLayers("pzones", "./src/geojson/zfptwc.geojson"),
 		RiskMapLayers("fzones", "./src/geojson/fwftwc.geojson"),
 	];
@@ -105,15 +119,33 @@ const mapControl = (() => {
 		{ crossOrigin: "anonymous" }
 	);
 
-	// const cities = L.geoJSON("./src/geojson/TWCcities.geojson", {
-	// 	pointToLayer: (feature, latlng) => {},
-	// });
+	const loadCities = async () => {
+		const response = await fetch("./src/geojson/TWCcities.geojson");
+		const geojson = await response.json();
+		const cities = L.geoJSON(geojson, {
+			pointToLayer: (feature, latlng) => {
+				console.log("feature:", feature);
+				console.log("latlng:", latlng);
+				return L.marker(latlng, {
+					icon: L.divIcon({
+						iconSize: "auto",
+						html: `<div class="city-marker">${feature.properties.City}</div>`,
+					}),
+				});
+			},
+		});
+		return cities;
+	};
 
-	const createMap = () => {
+	const createMap = async () => {
 		map.addLayer(basemap);
-		changeLayerGroup("counties");
+		const blarba = await counties();
+		map.addLayer(blarba);
+		changeLayerGroup("pzones");
 		map.addLayer(layerGroup);
 		map.addLayer(roads);
+		const cities = await loadCities();
+		map.addLayer(cities);
 	};
 
 	return { createMap, getLayerGroup, changeLayerGroup };
@@ -126,65 +158,6 @@ mapControl.createMap();
 selectLayer.addEventListener("change", (e) => {
 	mapControl.changeLayerGroup(e.target.value);
 });
-
-// function changeMapLayer(layerName) {
-// 	map.eachLayer((layer) => {
-// 		if (layer !== basemap && layer !== roads) {
-// 			map.removeLayer(layer);
-// 		}
-// 	});
-// 	let url = "";
-// 	for (let layer of arrayOfLayers) {
-// 		if (layer.getName() === layerName) {
-// 			url = layer.getUrl();
-// 		}
-// 	}
-// 	const newLayer = L.geoJSON({
-// 		url,
-// 		onEachFeature,
-// 		style: startingColor,
-// 	});
-// 	map.addLayer(newLayer);
-// }
-
-// getCounties();
-// async function getCounties() {
-// 	const response = await fetch("./src/geojson/az-counties.geojson");
-// 	const geojson = await response.json();
-// 	L.geoJSON(geojson, { style: startingColor, onEachFeature }).addTo(map);
-// }
-
-// function onEachFeature(feature, layer) {
-// 	layer.on("click", () => {
-// 		let currentColor = layer.options.fillColor;
-// 		layer.setStyle(cycleColor(currentColor));
-// 	});
-// }
-
-// function startingColor() {
-// 	return {
-// 		color: "#333",
-// 		opacity: 0.7,
-// 		fillColor: green,
-// 		fillOpacity: 0.6,
-// 		weight: 2,
-// 	};
-// }
-
-// function cycleColor(currentColor) {
-// 	switch (currentColor) {
-// 		case green:
-// 			return { fillColor: yellow };
-// 		case yellow:
-// 			return { fillColor: orange };
-// 		case orange:
-// 			return { fillColor: red };
-// 		case red:
-// 			return { fillColor: purple };
-// 		case purple:
-// 			return { fillColor: green };
-// 	}
-// }
 
 validDate.addEventListener("change", (e) => {
 	console.log(e.target.value);
