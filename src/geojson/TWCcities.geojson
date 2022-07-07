@@ -1,0 +1,18 @@
+{
+"type": "FeatureCollection",
+"name": "TWCcities",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Lat": 32.1155643, "Lon": -110.9370317, "City": "Tucson" }, "geometry": { "type": "Point", "coordinates": [ -110.937031699999977, 32.115564300000074 ] } },
+{ "type": "Feature", "properties": { "Lat": 31.3333447, "Lon": -110.9419822, "City": "Nogales" }, "geometry": { "type": "Point", "coordinates": [ -110.941982199999984, 31.333344700000055 ] } },
+{ "type": "Feature", "properties": { "Lat": 31.588467, "Lon": -110.3420697, "City": "Sierra Vista" }, "geometry": { "type": "Point", "coordinates": [ -110.342069699999968, 31.588467 ] } },
+{ "type": "Feature", "properties": { "Lat": 31.3425432, "Lon": -109.5033235, "City": "Douglas" }, "geometry": { "type": "Point", "coordinates": [ -109.503323499999965, 31.34254320000008 ] } },
+{ "type": "Feature", "properties": { "Lat": 32.2516443, "Lon": -109.8318048, "City": "Willcox" }, "geometry": { "type": "Point", "coordinates": [ -109.831804799999986, 32.251644300000066 ] } },
+{ "type": "Feature", "properties": { "Lat": 32.8521302, "Lon": -109.63716, "City": "Safford" }, "geometry": { "type": "Point", "coordinates": [ -109.63716, 32.852130200000033 ] } },
+{ "type": "Feature", "properties": { "Lat": 32.611045, "Lon": -110.7700728, "City": "Oracle" }, "geometry": { "type": "Point", "coordinates": [ -110.77007279999998, 32.611045 ] } },
+{ "type": "Feature", "properties": { "Lat": 31.9131432, "Lon": -111.8791164, "City": "Sells" }, "geometry": { "type": "Point", "coordinates": [ -111.879116399999987, 31.913143200000036 ] } },
+{ "type": "Feature", "properties": { "Lat": 32.374173, "Lon": -112.8700493, "City": "Ajo" }, "geometry": { "type": "Point", "coordinates": [ -112.870049299999948, 32.374173 ] } },
+{ "type": "Feature", "properties": { "Lat": 32.7520618, "Lon": -111.5548406, "City": "Eloy" }, "geometry": { "type": "Point", "coordinates": [ -111.554840599999977, 32.752061800000035 ] } },
+{ "type": "Feature", "properties": { "Lat": 33.435546, "Lon": -112.0101993, "City": "Phoenix" }, "geometry": { "type": "Point", "coordinates": [ -112.010199299999954, 33.435546 ] } }
+]
+}
