@@ -8,6 +8,7 @@ const messageText = document.querySelector("#messageText");
 const branding = document.querySelector(".branding");
 
 const selectLayer = document.querySelector("#selectLayer");
+const selectBasemap = document.querySelector("#selectBasemap");
 
 const mapGraphic = document.querySelector("#map");
 const btnDownload = document.querySelector("#btnDownload");
@@ -16,7 +17,7 @@ const btnDownload = document.querySelector("#btnDownload");
 const mapControl = (() => {
 	// create leaflet map
 	const map = L.map("map", {
-		center: [32.4, -111.0],
+		center: [32.5, -111.0],
 		zoom: 7.8,
 		maxZoom: 10,
 		minZoom: 5,
@@ -33,6 +34,27 @@ const mapControl = (() => {
 			attribution: `Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.`,
 		}
 	);
+
+	const basemapUrls = {
+		terrain: {
+			url: "https://stamen-tiles.a.ssl.fastly.net/terrain-background/{z}/{x}/{y}.png",
+			attribution: `Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.`,
+		},
+		lightGray: {
+			url: "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",
+			attribution: "Esri, HERE, Garmin, © OpenStreetMap contributors, and the GIS User Community",
+		},
+		toner: {
+			url: "https://stamen-tiles.a.ssl.fastly.net/toner-background/{z}/{x}/{y}.png",
+			attribution: `Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.`,
+		},
+	};
+
+	const changeBasemap = (newMap) => {
+		basemap.setUrl(basemapUrls[newMap].url);
+		map.attributionControl._attributions = {};
+		map.attributionControl.addAttribution(basemapUrls[newMap].attribution);
+	};
 	// probably remove this counties layer later...
 	const counties = async () => {
 		const response = await fetch("./src/geojson/az-counties.geojson");
@@ -93,7 +115,7 @@ const mapControl = (() => {
 			color: "#333",
 			opacity: 0.7,
 			fillColor: green,
-			fillOpacity: 0.6,
+			fillOpacity: 0.8,
 			weight: 2,
 		};
 	};
@@ -148,7 +170,7 @@ const mapControl = (() => {
 		map.addLayer(cities);
 	};
 
-	return { createMap, getLayerGroup, changeLayerGroup };
+	return { createMap, getLayerGroup, changeLayerGroup, changeBasemap };
 })();
 
 // create leaflet map
@@ -157,6 +179,12 @@ mapControl.createMap();
 // change listener that changes map layer based on selection
 selectLayer.addEventListener("change", (e) => {
 	mapControl.changeLayerGroup(e.target.value);
+});
+
+// change listener to switch basemaps
+selectBasemap.addEventListener("change", (e) => {
+	console.log("basemap changed to:", e.target.value);
+	mapControl.changeBasemap(e.target.value);
 });
 
 validDate.addEventListener("change", (e) => {
